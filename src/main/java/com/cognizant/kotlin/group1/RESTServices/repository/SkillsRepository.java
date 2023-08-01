@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface SkillsRepository extends JpaRepository<Skills, Long> {
-    //@Query(value = "SELECT * FROM tutorials", nativeQuery = true)
+
     List<Skills> findAllByCognizantId(Integer cognizantId);
 }

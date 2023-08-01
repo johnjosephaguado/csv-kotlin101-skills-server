@@ -32,4 +32,9 @@ public class ConsultantServiceImpl implements ConsultantService{
     public List<Consultant> getConsultants() {
         return repo.findAll();
     }
+
+    @Override
+    public List<Consultant> searchBySkillName(String skillName) {
+        return repo.findAllBySkillName('%'+skillName.toUpperCase() + '%');
+    }
 }

@@ -49,6 +49,8 @@ public class RESTController {
         return SkillInfo.builder().cognizantId(2269180).build();
     }
 
+
+    // PULL-DOWN
     @GetMapping("/api/getLevels")
     public ResponseEntity<List<Levels>> getLevels() {
         return new ResponseEntity<>(SkillLevelTools.convert(skillLevelService.getSkillLevels()), HttpStatus.OK);
@@ -59,35 +61,8 @@ public class RESTController {
         return new ResponseEntity<>(SkillTypeTools.convert(skillTypeService.getSkillTypes()), HttpStatus.OK);
     }
 
+    // LOGIN OPERATION
 
-    @GetMapping("/api/getConsultant/{id}")
-    public ResponseEntity<ConsultantInfo> getConsultant(@PathVariable Integer id) {
-        return new ResponseEntity<>(ConsultantTools.convertToModel(consultantService.getConsultant(id)), HttpStatus.OK);
-    }
-
-    @GetMapping("/api/getConsultant/{id}/skills")
-    public ResponseEntity<List<SkillInfo>> getConsultantSkills(@PathVariable Integer id) {
-        return new ResponseEntity<>(SkillTools.convert(skillLevelService, skillTypeService, skillsService.getSkills(id)), HttpStatus.OK);
-    }
-
-    @GetMapping("/api/getConsultants")
-    public ResponseEntity<List<ConsultantInfo>> getConsultants() {
-        return new ResponseEntity<>(ConsultantTools.convertToModel(consultantService.getConsultants()), HttpStatus.OK);
-    }
-
-    @PutMapping("/api/addConsultant")
-    public ResponseEntity<ConsultantInfo> addConsultant(@RequestBody ConsultantInfo info) {
-        Consultant newEntity = Consultant.builder().cognizantId(info.getCognizantId()).build();
-        ConsultantTools.update(newEntity, info);
-        return new ResponseEntity<>(ConsultantTools.convertToModel(consultantService.saveConsultant(newEntity)), HttpStatus.OK);
-    }
-
-    @PostMapping("/api/updateConsultant")
-    public ResponseEntity<ConsultantInfo> updateConsultant(@RequestBody ConsultantInfo info) {
-        Consultant newEntity = consultantService.getConsultant(info.getCognizantId());
-        ConsultantTools.update(newEntity, info);
-        return new ResponseEntity<>(ConsultantTools.convertToModel(consultantService.updateConsultant(newEntity)), HttpStatus.OK);
-    }
 
     @PostMapping("/api/login")
     public ResponseEntity<LoginInfo> login(@RequestBody LoginInfo login) {
@@ -102,11 +77,59 @@ public class RESTController {
         return new ResponseEntity<>(LoginInfo.builder().accessCode("GRANTED").message("ACCESS GRANTED").cognizantId(login.getCognizantId()).password(login.getPassword()).consultantInfo(ConsultantTools.convertToModel(consultant)).build(), HttpStatus.OK);
     }
 
-    @PutMapping("/api/addConsultant/skill")
+
+    // CONSULTANT OPERATION
+
+    @GetMapping("/api/consultants")
+    public ResponseEntity<List<ConsultantInfo>> getConsultants() {
+        return new ResponseEntity<>(ConsultantTools.convertToModel(consultantService.getConsultants()), HttpStatus.OK);
+    }
+
+    @GetMapping("/api/consultant/{id}")
+    public ResponseEntity<ConsultantInfo> getConsultant(@PathVariable Integer id) {
+        return new ResponseEntity<>(ConsultantTools.convertToModel(consultantService.getConsultant(id)), HttpStatus.OK);
+    }
+
+    @PutMapping("/api/consultant/add")
+    public ResponseEntity<ConsultantInfo> addConsultant(@RequestBody ConsultantInfo info) {
+        Consultant newEntity = Consultant.builder().cognizantId(info.getCognizantId()).build();
+        ConsultantTools.update(newEntity, info);
+        return new ResponseEntity<>(ConsultantTools.convertToModel(consultantService.saveConsultant(newEntity)), HttpStatus.OK);
+    }
+
+    @PatchMapping("/api/consultant/update")
+    public ResponseEntity<ConsultantInfo> updateConsultant(@RequestBody ConsultantInfo info) {
+        Consultant newEntity = consultantService.getConsultant(info.getCognizantId());
+        ConsultantTools.update(newEntity, info);
+        return new ResponseEntity<>(ConsultantTools.convertToModel(consultantService.updateConsultant(newEntity)), HttpStatus.OK);
+    }
+
+    @PutMapping("/api/consultant/skill/add")
     public ResponseEntity<SkillInfo> addConsultantSkill(@RequestBody SkillInfo info) {
         Skills skills = skillsService.save(SkillTools.convert(info));
         return new ResponseEntity<>(SkillTools.convert(skillLevelService,skillTypeService,skills),HttpStatus.OK);
     }
+    @DeleteMapping ("/api/consultant/skill/delete")
+    public ResponseEntity<SkillInfo> removeConsultantSkill(@RequestBody SkillInfo info) {
+        Skills skills = SkillTools.convert(info);
+        skillsService.delete(skills);
+        return new ResponseEntity<>(info,HttpStatus.OK);
+    }
+    @PatchMapping("/api/consultant/skill/update")
+    public ResponseEntity<SkillInfo> updateConsultantSkill(@RequestBody SkillInfo info) {
 
+        Skills skills = skillsService.update(SkillTools.convert(info));
+        return new ResponseEntity<>(SkillTools.convert(skillLevelService,skillTypeService,skills),HttpStatus.OK);
+    }
+    @GetMapping("/api/consultant/{id}/skills")
+    public ResponseEntity<List<SkillInfo>> getConsultantSkills(@PathVariable Integer id) {
+        return new ResponseEntity<>(SkillTools.convert(skillLevelService, skillTypeService, skillsService.getSkills(id)), HttpStatus.OK);
+    }
 
+    // SEARCH FUNCTION
+
+    @GetMapping("/api/consultant/search/skillname/{skillName}")
+    public ResponseEntity<List<ConsultantInfo>> searchSkillsByName(@PathVariable String skillName) {
+        return new ResponseEntity<>(ConsultantTools.convertToModel(consultantService.searchBySkillName(skillName)), HttpStatus.OK);
+    }
 }

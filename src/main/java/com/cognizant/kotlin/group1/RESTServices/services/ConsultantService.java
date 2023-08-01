@@ -10,5 +10,6 @@ public interface ConsultantService {
     Consultant updateConsultant(Consultant consultant);
     Consultant getConsultant(Integer id);
     List<Consultant> getConsultants();
+    List<Consultant> searchBySkillName(String skillName);
 
 }
