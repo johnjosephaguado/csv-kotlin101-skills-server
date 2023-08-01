@@ -6,7 +6,7 @@
 
 
 **To pre-load sample data:**
-1. got to project src->main->resources
+1. go to project src->main->resources
 2. open data.sql
 3. Modify or insert your test data
 
