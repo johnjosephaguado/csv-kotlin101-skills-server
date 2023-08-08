@@ -67,6 +67,7 @@ public class RESTController {
     @PostMapping("/api/login")
     public ResponseEntity<LoginInfo> login(@RequestBody LoginInfo login) {
         Consultant consultant = consultantService.getConsultant(login.getCognizantId());
+        try {
         if (Objects.isNull(consultant)) {
             return new ResponseEntity<>(LoginInfo.builder().accessCode("DENIED").message("INVALID LOGIN ID").cognizantId(login.getCognizantId()).password(login.getPassword()).build(), HttpStatus.FORBIDDEN);
         } else if (consultant.getPassword().compareTo(login.getPassword()) != 0) {
@@ -74,6 +75,10 @@ public class RESTController {
         } else if (consultant.getStatusCode().compareTo("A") != 0) {
             return new ResponseEntity<>(LoginInfo.builder().accessCode("DENIED").message("ACCOUNT INACTIVE").cognizantId(login.getCognizantId()).password(login.getPassword()).build(), HttpStatus.FORBIDDEN);
         }
+        } catch (Exception e) {
+            return new ResponseEntity<>(LoginInfo.builder().accessCode("DENIED").message("INVALID LOGIN ID").cognizantId(login.getCognizantId()).password(login.getPassword()).build(), HttpStatus.FORBIDDEN);
+        }
+
         return new ResponseEntity<>(LoginInfo.builder().accessCode("GRANTED").message("ACCESS GRANTED").cognizantId(login.getCognizantId()).password(login.getPassword()).consultantInfo(ConsultantTools.convertToModel(consultant)).build(), HttpStatus.OK);
     }
 
