@@ -1,0 +1,371 @@
+{
+	"info": {
+		"_postman_id": "ce2d36a1-0651-4055-ad43-2dc3bf965651",
+		"name": "Kotlin Server Tester",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cognizantId\": 2269180,\r\n    \"password\": \"Java@1234\",\r\n    \"accessCode\": null,\r\n    \"message\": null,\r\n    \"consultantInfo\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7171/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7171",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Consultant",
+			"item": [
+				{
+					"name": "Consultant Skills",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7171/api/consultant/2269180/skills",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7171",
+							"path": [
+								"api",
+								"consultant",
+								"2269180",
+								"skills"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Consultant",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7171/api/consultant/2269180",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7171",
+							"path": [
+								"api",
+								"consultant",
+								"2269180"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Consultant",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"cognizantId\": 2269181,\r\n        \"avatar\": \"A\",\r\n        \"lastName\": \"Ramos\",\r\n        \"firstName\": \"CJ\",\r\n        \"middleName\": \"Santiago\",\r\n        \"designation\": \"Junior Software Engineer\",\r\n        \"emailAddress\": \"cj.ramos@cognizant.com\",\r\n        \"bench\": false,\r\n        \"manager\": false,\r\n        \"password\": \"Java@1234\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7171/api/consultant/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7171",
+							"path": [
+								"api",
+								"consultant",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consultants",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7171/api/consultants",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7171",
+							"path": [
+								"api",
+								"consultants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add skills",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"skillId\": null,\r\n    \"cognizantId\": 2269181,\r\n    \"skillTypeId\": 1,\r\n    \"skillName\": null,\r\n    \"years\": 5,\r\n    \"levelType\": 3,\r\n    \"levelName\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7171/api/consultant/skill/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7171",
+							"path": [
+								"api",
+								"consultant",
+								"skill",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete skill",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"skillId\": 8,\r\n    \"cognizantId\": 2269181,\r\n    \"skillTypeId\": 1,\r\n    \"skillName\": \"Java\",\r\n    \"years\": 5,\r\n    \"levelType\": 2,\r\n    \"levelName\": \"Advance\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7171/api/consultant/skill/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7171",
+							"path": [
+								"api",
+								"consultant",
+								"skill",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Skills",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"skillId\": 8,\r\n    \"cognizantId\": 2269181,\r\n    \"skillTypeId\": 1,\r\n    \"skillName\": \"Java\",\r\n    \"years\": 5,\r\n    \"levelType\": 2,\r\n    \"levelName\": \"Expert\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:7171/api/consultant/skill/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7171",
+							"path": [
+								"api",
+								"consultant",
+								"skill",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pull-Down",
+			"item": [
+				{
+					"name": "get levels",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7171/api/getLevels",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7171",
+							"path": [
+								"api",
+								"getLevels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Skill Types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7171/api/getSkillTypes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7171",
+							"path": [
+								"api",
+								"getSkillTypes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Demo",
+			"item": [
+				{
+					"name": "getSkillInfoDemo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7171/demo/getSkillInfo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7171",
+							"path": [
+								"demo",
+								"getSkillInfo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sanity Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7171/sanity",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7171",
+							"path": [
+								"sanity"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Sample Login",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7171/demo/getLogin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7171",
+							"path": [
+								"demo",
+								"getLogin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Search",
+			"item": [
+				{
+					"name": "Searck by skillName",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7171/api/consultant/search/skillname/java",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7171",
+							"path": [
+								"api",
+								"consultant",
+								"search",
+								"skillname",
+								"java"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
